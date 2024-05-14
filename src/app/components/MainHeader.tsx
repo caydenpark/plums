@@ -8,6 +8,15 @@ export default function MainHeader() {
             <a href="/home" className="text-white hover:text-gray-200">
               Home
             </a>
+            <a href="/home" className="text-white hover:text-gray-200">
+              Create
+            </a>
+            <a href="/home" className="text-white hover:text-gray-200">
+              Update
+            </a>
+            <a href="/home" className="text-white hover:text-gray-200">
+              Delete
+            </a>
           </li>
         </ul>
       </nav>
