@@ -1,10 +1,10 @@
 export default function MainHeader() {
   return (
-    <header className="bg-blue-500 text-white p-5">
+    <header className="bg-purple-500 text-white p-5">
       <h1 className="text-4xl">PLUMS</h1>
       <nav>
-        <ul className="list-none">
-          <li className="inline-block mr-4">
+        <ul className="list-none  space-y-3 p-4">
+          <li className="inline-block mr-4 flex flex-col">
             <a href="/home" className="text-white hover:text-gray-200">
               Home
             </a>
