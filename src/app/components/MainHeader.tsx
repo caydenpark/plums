@@ -4,7 +4,7 @@ export default function MainHeader() {
       <h1 className="text-4xl">PLUMS</h1>
       <nav>
         <ul className="list-none  space-y-3 p-4">
-          <li className="inline-block mr-4 flex flex-col">
+          <li className="inline-block mr-4">
             <a href="/home" className="text-white hover:text-gray-200">
               Home
             </a>
