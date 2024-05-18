@@ -14,15 +14,17 @@ export default function Home() {
 
       <h1 className="text-3xl text-center mt-5">Welcome to PLUMS</h1>
       <div className="flex flex-row space-x-32">
-        <button className="p-1 mr-1">
-          <Image
-            src="/add_icon.png"
-            alt="add image"
-            width={100}
-            height={100}
-            className="bg-[#D9D8DD] rounded-full p-.5 m-.5 shadow-2xl"
-          />
-        </button>
+        <Link href="/add-topics">
+          <button className="p-1 mr-1">
+            <Image
+              src="/add_icon.png"
+              alt="add image"
+              width={100}
+              height={100}
+              className="bg-[#D9D8DD] rounded-full p-.5 m-.5 shadow-2xl"
+            />
+          </button>
+        </Link>
 
         <Link href="/Topics">
           <button className="m-1 p-1">
