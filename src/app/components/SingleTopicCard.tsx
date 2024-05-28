@@ -1,17 +1,29 @@
-// Obtain and display the topic card dynamically obtained from database
-import Image from "next/image";
+//function to render the topics cards from db
 
-export default function SingleTopicCard() {
+import Link from "next/link";
+
+export default function TopicsCards() {
   return (
-    <div className="bg-[#D9D8DD] p-3 m-5 rounded-2xl w-9/12 flex shadow-xl justify-center">
-      <h1 className="text-4xl m-1">React</h1>
-      <Image
-        src="/right_arrow_icon.png"
-        alt="arrow icon"
-        width={50}
-        height={50}
-        className="m-1 ml-9"
-      />
+    <div className=" grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="transform transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110">
+        <div className="m-4 max-w-sm overflow-hidden rounded shadow-lg hover:shadow-2xl">
+          <div className="bg-fuchsia-300 px-8 py-4">
+            <h2 className="text-black-500 text-center text-2xl font-bold">
+              React
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="transform cursor-pointer transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110">
+        <div className="m-4 max-w-sm overflow-hidden rounded shadow-lg hover:shadow-2xl">
+          <div className="bg-fuchsia-300 px-8 py-4">
+            <h2 className="text-black-500 text-center text-2xl font-bold">
+              Node.js
+            </h2>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
