@@ -1,4 +1,3 @@
-import { MainButtons } from "../components/MainButtons";
 import MainHeader from "../components/MainHeader";
 import SingleTopicCard from "../components/SingleTopicCard";
 
@@ -12,7 +11,6 @@ export default function Topics() {
             <div className="flex flex-col items-center">
               <SingleTopicCard />
             </div>
-            <MainButtons />
           </div>
         </div>
       </main>

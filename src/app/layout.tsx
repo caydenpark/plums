@@ -17,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       <Head>
-        <link rel="icon" href="/favicon.ico" />
+      <Head>
+        <a rel="icon" href="/favicon.ico" />
       </Head>
-      <body className="bg-[#7976D1] min-h-screen font-sans antialiased">
+      <body className="bg-[#7976D1]">
         {children}
       </body>
     </html>
