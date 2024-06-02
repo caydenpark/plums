@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Topic {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  date_added   DateTime @default(now())
+  date_updated DateTime @updatedAt
+
+  // Define the one-to-many relationship with Images
+  images       Image[]
+  notes        Note[]
+  links        Link[]
+  attachments  Attachment[]
+}
+
+model Image {
+  id           Int      @id @default(autoincrement())
+  topic_id     Int
+  name         String
+  date_added   DateTime @default(now())
+  date_updated DateTime @updatedAt
+  type         ImgType
+
+  // Define the relation and the foreign key constraint
+  topic        Topic   @relation(fields: [topic_id], references: [id]) 
+
+  @@index([topic_id])
+}
+
+enum ImgType {
+  JPEG
+  JPG
+  PNG
+  HEIC
+}
+
+model Note {
+  id           Int      @id @default(autoincrement())
+  topic_id     Int
+  title        String
+  content      String
+  date_added   DateTime @default(now())
+  date_updated DateTime @updatedAt
+
+  // Define the relation and the foreign key constraint
+  topic        Topic   @relation(fields: [topic_id], references: [id])
+
+  @@index([topic_id])
+}
+
+model Link {
+  id           Int      @id @default(autoincrement())
+  topic_id     Int
+  title        String
+  url          String
+  description  String
+  date_added   DateTime @default(now())
+  date_updated DateTime @updatedAt
+
+  // Define the relation and the foreign key constraint
+  topic        Topic   @relation(fields: [topic_id], references: [id])
+
+  @@index([topic_id])
+}
+
+model Attachment {
+  id           Int      @id @default(autoincrement())
+  topic_id     Int
+  name         String
+  date_added   DateTime @default(now())
+  date_updated DateTime @updatedAt
+  type         FileType
+
+  // Define the relation and the foreign key constraint
+  topic        Topic   @relation(fields: [topic_id], references: [id])
+
+  @@index([topic_id])
+}
+
+enum FileType {
+  DOCX
+  PDF
+  XLSX
+  PPTX
+  MP3
+  ZIP
+  TXT
+  JSON
+}
