@@ -17,7 +17,7 @@ export default function TopicsBoard() {
   };
 
   return (
-    <div className=" grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="m-5 grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       <SingleCard />
       <SingleCard />
       <SingleCard />

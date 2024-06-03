@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function SingleCard() {
   return (
     <>
-      <div className="transform transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110">
+      <div className="transform transition duration-100 ease-in-out hover:-translate-y-1 hover:scale-110">
         <div className="m-4 max-w-sm overflow-hidden rounded-xl shadow-md hover:shadow-2xl">
-          <div className="flex flex-col items-center space-y-4 bg-rose-200 bg-opacity-75 p-6">
+          <div className="flex flex-col items-center space-y-6 bg-rose-200 bg-opacity-75 p-6">
             <svg
               height="100"
               viewBox="175.7 78 490.6 436.9"
