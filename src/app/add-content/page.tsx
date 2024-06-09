@@ -13,7 +13,7 @@ export default function Content() {
           <tbody className="text-center">
             <tr>
               <td className="p-4 bg-violet-300 rounded-md rounded-tl-3xl">
-                <Link href="">
+                <Link href="/new-image">
                     <Image
                       src={"/images/image_icon.png"}
                       alt="image icon"
