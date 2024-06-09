@@ -60,7 +60,7 @@ export default function Content() {
       </div>
 
       <div className="w-full flex justify-end ">
-        <Link href="">
+        <Link href="/Topics">
           <button id="nextButton" className="text-4xl bg-[#D9D8DD] opacity-60 p-6 rounded-l-3xl shadow-2xl">
             Not Yet
           </button>
