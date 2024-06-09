@@ -1,6 +1,10 @@
-import Link from "next/link";
+interface CardProps {
+  id: number;
+  title: string;
+  description: string;
+}
 
-export default function SingleCard() {
+export default function SingleCard({ title, description }: CardProps) {
   return (
     <>
       <div className="transform transition duration-100 ease-in-out hover:-translate-y-1 hover:scale-110">
@@ -18,11 +22,10 @@ export default function SingleCard() {
                 <circle cx="420.9" cy="296.5" r="45.7" />
               </g>
             </svg>
-            <h2 className="text-center text-2xl font-bold text-black">React</h2>
-            <p className="text-center">
-              React is the library for web and native user interfaces
-            </p>
-            <Link href="/topics/1">Read More</Link>
+            <h2 className="text-center text-2xl font-bold text-black">
+              {title}
+            </h2>
+            <p className="text-center">{description}</p>
           </div>
         </div>
       </div>
