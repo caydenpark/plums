@@ -35,7 +35,7 @@ export default function Content() {
             </tr>
             <tr>
               <td className="p-4 bg-violet-300 rounded-md rounded-bl-3xl">
-                <Link href="">
+                <Link href="/new-file">
                     <Image
                       src={"/images/files_icon.png"}
                       alt="files icon"
