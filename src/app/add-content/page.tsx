@@ -23,7 +23,7 @@ export default function Content() {
                 </Link>
               </td>
               <td className="p-4 bg-violet-300 rounded-md rounded-tr-3xl">
-                <Link href="">
+                <Link href="/new-note">
                     <Image
                       src={"/images/notes_icon.png"}
                       alt="notes icon"
