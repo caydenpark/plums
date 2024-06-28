@@ -5,7 +5,7 @@ import SingleCard from "./SingleCard";
 
 interface TopicProps {
   id: number;
-  title: string;
+  name: string;
   description: string;
   date_added: Date;
 }
