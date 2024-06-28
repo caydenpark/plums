@@ -35,7 +35,6 @@ export default function AllTopics() {
 
   return (
     <div>
-      <h1>All Topics</h1>
       {topics.map((topic) => (
         <SingleCard key={topic.id} {...topic} />
       ))}

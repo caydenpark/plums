@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
-import AddTopic from "./AddTopic";
-import Link from "next/link";
-import { useState } from "react";
-import AllTopics from "./AllTopics";
 
+import { useState } from "react";
+import AddTopic from "../components/AddTopic";
+import AllTopics from "../components/AllTopics";
 
 export default function TopicsBoard() {
   const [showForm, setShowForm] = useState(false);
@@ -19,6 +17,12 @@ export default function TopicsBoard() {
 
   return (
     <div className="m-5 grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <button
+        className="rounded-md bg-blue-600 px-4 py-2 text-white"
+        onClick={handleClick}
+      >
+        Add Topic
+      </button>
       <div>
         <AllTopics />
         {showForm && <AddTopic onClose={handleClose} />}
