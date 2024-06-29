@@ -1,6 +1,9 @@
 import prisma from "../../../../prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 
+
+//GET api/topics
+//function to fetch all topics from the database and return them
 export async function GET() {
   try {
     const topics = await prisma.topic.findMany();
@@ -14,6 +17,9 @@ export async function GET() {
   }
 }
 
+
+//POST /api/topics
+//function to create new topics in the database and return the created topic
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { name } = body;
@@ -28,6 +34,7 @@ export async function POST(req: NextRequest) {
         name,
       },
     });
+
     return NextResponse.json(topic, { status: 201 });
   } catch (error) {
     console.error("Failed to create topic", error);

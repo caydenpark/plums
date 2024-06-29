@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,25 +8,19 @@ datasource db {
 }
 
 model Topic {
-  id           Int      @id @default(autoincrement())
-  name         String   @unique
-  date_added   DateTime @default(now())
-  date_updated DateTime @updatedAt
-  parent_id    Int? // Optional field for subtopics
-
-  // Define the one-to-many relationship with Images, Notes, Links, and Attachments
-  images      Image[]
-  notes       Note[]
-  links       Link[]
-  attachments Attachment[]
-
-  // Self-referencing relationship for subtopics
-  parent    Topic?  @relation("Subtopics", fields: [parent_id], references: [id])
-  subtopics Topic[] @relation("Subtopics")
-
-  // Many-to-many relationship with Label
-  labels      Label[]       @relation("TopicLabels")
-  TopicLabels TopicLabels[]
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  date_added   DateTime      @default(now())
+  date_updated DateTime      @updatedAt
+  parent_id    Int?
+  attachments  Attachment[]
+  images       Image[]
+  links        Link[]
+  notes        Note[]
+  parent       Topic?        @relation("Subtopics", fields: [parent_id], references: [id])
+  subtopics    Topic[]       @relation("Subtopics")
+  TopicLabels  TopicLabels[]
+  labels       Label[]       @relation("TopicLabels")
 
   @@index([parent_id])
 }
@@ -44,18 +32,9 @@ model Image {
   date_added   DateTime @default(now())
   date_updated DateTime @updatedAt
   type         ImgType
-
-  // Define the relation and the foreign key constraint
-  topic Topic @relation(fields: [topic_id], references: [id])
+  topic        Topic    @relation(fields: [topic_id], references: [id])
 
   @@index([topic_id])
-}
-
-enum ImgType {
-  JPEG
-  JPG
-  PNG
-  HEIC
 }
 
 model Note {
@@ -65,9 +44,7 @@ model Note {
   content      String
   date_added   DateTime @default(now())
   date_updated DateTime @updatedAt
-
-  // Define the relation and the foreign key constraint
-  topic Topic @relation(fields: [topic_id], references: [id])
+  topic        Topic    @relation(fields: [topic_id], references: [id])
 
   @@index([topic_id])
 }
@@ -80,9 +57,7 @@ model Link {
   description  String
   date_added   DateTime @default(now())
   date_updated DateTime @updatedAt
-
-  // Define the relation and the foreign key constraint
-  topic Topic @relation(fields: [topic_id], references: [id])
+  topic        Topic    @relation(fields: [topic_id], references: [id])
 
   @@index([topic_id])
 }
@@ -94,11 +69,34 @@ model Attachment {
   date_added   DateTime @default(now())
   date_updated DateTime @updatedAt
   type         FileType
-
-  // Define the relation and the foreign key constraint
-  topic Topic @relation(fields: [topic_id], references: [id])
+  topic        Topic    @relation(fields: [topic_id], references: [id])
 
   @@index([topic_id])
+}
+
+model Label {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  date_added   DateTime      @default(now())
+  date_updated DateTime      @updatedAt
+  TopicLabels  TopicLabels[]
+  topics       Topic[]       @relation("TopicLabels")
+}
+
+model TopicLabels {
+  topic_id Int
+  label_id Int
+  label    Label @relation(fields: [label_id], references: [id], onDelete: Cascade)
+  topic    Topic @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+
+  @@id([topic_id, label_id])
+}
+
+enum ImgType {
+  JPEG
+  JPG
+  PNG
+  HEIC
 }
 
 enum FileType {
@@ -110,25 +108,4 @@ enum FileType {
   ZIP
   TXT
   JSON
-}
-
-model Label {
-  id           Int      @id @default(autoincrement())
-  name         String   @unique
-  date_added   DateTime @default(now())
-  date_updated DateTime @updatedAt
-
-  // Many-to-many relationship with Topic
-  topics      Topic[]       @relation("TopicLabels")
-  TopicLabels TopicLabels[]
-}
-
-model TopicLabels {
-  topic_id Int
-  label_id Int
-
-  topic Topic @relation(fields: [topic_id], references: [id], onDelete: Cascade)
-  label Label @relation(fields: [label_id], references: [id], onDelete: Cascade)
-
-  @@id([topic_id, label_id])
 }
