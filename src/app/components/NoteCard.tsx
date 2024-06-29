@@ -10,9 +10,10 @@ import DeleteButton from "./DeleteButton";
 
 interface NoteCardProps {
   note: Note;
+  onDelete: (id: number) => void;
 }
 
-export default function NoteCard({ note }: NoteCardProps) {
+export default function NoteCard({ note, onDelete }: NoteCardProps) {
   const { id } = useParams();
   const [notes, setNotes] = useState<Note[]>([]);
 
@@ -31,7 +32,7 @@ export default function NoteCard({ note }: NoteCardProps) {
   }, [id]);
 
   const handleDelete = (id: number) => {
-    setNotes(notes.filter((note) => note.id !== id));
+    onDelete(id);
   };
 
   return (
