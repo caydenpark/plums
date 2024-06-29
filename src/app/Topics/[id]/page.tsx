@@ -48,6 +48,23 @@ export default function TopicPage() {
     });
   };
 
+  const handleNoteDeleted = (noteId: number) => {
+    if (topic) {
+      setTopic({
+        ...topic,
+        notes: topic.notes.filter((note) => note.id !== noteId),
+      });
+    }
+  };
+
+  if (!topic) {
+    return (
+      <div className="flex items-center justify-center p-4 text-blue-500">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <>
       <MainHeader />
@@ -66,7 +83,11 @@ export default function TopicPage() {
         {topic && topic.notes.length > 0 ? (
           <div className="grid md:gap-4 lg:gap-x-24 xl:gap-60 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {topic.notes.map((note) => (
-              <NoteCard key={note.id} note={note} />
+              <NoteCard
+                key={note.id}
+                note={note}
+                onDelete={handleNoteDeleted}
+              />
             ))}
           </div>
         ) : (
