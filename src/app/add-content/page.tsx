@@ -1,13 +1,25 @@
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Content() {
+  const searchParams = useSearchParams();
+  const topicName = searchParams.get("topicName");
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pb-10">
       <h1 className="text-center bg-violet-300 py-6 rounded-b-3xl text-4xl w-full">
         Do you have any notes, <br/> images, links, or files <br/> ready to upload?
       </h1>
 
+      <h1 className="text-center bg-violet-300 p-6 rounded-3xl text-4xl my-8 shadow-lg border-4 border-violet-500">
+        <span className="text-5xl font-bold text-violet-800">
+          {topicName}
+        </span>
+      </h1>
       <div className="flex justify-center items-center">
         <table className="w-full border-separate border-spacing-3 border-none">
           <tbody className="text-center">
