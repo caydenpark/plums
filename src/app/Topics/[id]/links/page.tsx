@@ -40,7 +40,7 @@ export default function LinksPage() {
     <>
       <MainHeader />
       <div className="mx-2 max-w-4xl md:p-16 lg:py-24">
-        <h1 className="mt-12 sm:mt-28 text-2xl font-semibold text-gray-900">
+        <h1 className="mt-12 sm:mt-28 text-2xl font-semibold text-gray-900 lg:mt-8 xl:mt-11">
           Links
         </h1>
         <button
@@ -62,7 +62,7 @@ export default function LinksPage() {
             {links.map((link) => (
               <div
                 key={link.id}
-                className="mx-auto rounded-lg border-4 border-blue-300 bg-white p-4 shadow-sm transition duration-300 ease-in-out hover:-rotate-1 hover:border-blue-500 hover:shadow-lg"
+                className="mx-auto rounded-lg border-4 border-blue-300 bg-white p-4 shadow-sm transition duration-300 ease-in-out hover:-rotate-2 hover:border-blue-500 hover:shadow-lg"
               >
                 <h1 className="mt-2 text-gray-800 text-xl">{link.title}</h1>
                 <a
