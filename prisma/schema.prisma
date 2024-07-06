@@ -29,6 +29,7 @@ model Image {
   id           Int      @id @default(autoincrement())
   topic_id     Int
   name         String
+  url          String
   date_added   DateTime @default(now())
   date_updated DateTime @updatedAt
   type         ImgType
