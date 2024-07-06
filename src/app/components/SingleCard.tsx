@@ -12,7 +12,7 @@ const SingleCard: React.FC<SingleCardProps> = ({ id, name }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/topics/${id}`);
+    router.push(`/Topics/${id}`);
   };
 
   return (
