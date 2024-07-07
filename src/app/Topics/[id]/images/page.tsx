@@ -1,5 +1,5 @@
 // ImagePage.tsx
-'use client';
+"use client";
 import React, { useState, useEffect } from "react";
 import Image from "../../../Data/Image.model";
 import { useParams } from "next/navigation";
@@ -7,17 +7,16 @@ import ImageCard from "@/app/components/ImageCard";
 import MainHeader from "@/app/components/MainHeader";
 import MainFooter from "@/app/components/MainFooter";
 import AddImageModal from "@/app/components/AddImageModal";
-import { parse } from "path";
 
 export default function ImagePage() {
   const [images, setImages] = useState<Image[]>([]);
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchImages = async () => {
-      setLoading(true); // Set loading state
+      setLoading(true);
       try {
         const response = await fetch(`/api/topics/${id}/images`);
         if (!response.ok) {
@@ -28,7 +27,7 @@ export default function ImagePage() {
       } catch (error) {
         console.error("Failed to fetch images", error);
       } finally {
-        setLoading(false); // Clear loading state
+        setLoading(false);
       }
     };
     fetchImages();
@@ -41,10 +40,12 @@ export default function ImagePage() {
   return (
     <>
       <MainHeader />
-      <div className="mx-2 max-w-4xl md:p-16 lg:py-24">
-        <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl">Images</h1>
+      <div className="mx-4 md:p-4 lg:py-10">
+        <h1 className="mx-0 text-3xl sm:mt-24 sm:mb-8 md:text-4xl lg:text-4xl xl:text-4xl">
+          Images
+        </h1>
         <button
-          className="mt-8 inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="mt-8 sm:mt-0 inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm transition duration-150 ease-in-out hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           onClick={() => setShowModal(true)}
         >
           Add Image
@@ -59,9 +60,11 @@ export default function ImagePage() {
         {loading ? (
           <p className="text-blue-900 text-3xl">Loading...</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="m-9 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {images.map((image) => (
-              <ImageCard key={image.id} image={image} />
+              <div key={image.id} className="flex justify-center">
+                <ImageCard image={image} />
+              </div>
             ))}
           </div>
         )}
