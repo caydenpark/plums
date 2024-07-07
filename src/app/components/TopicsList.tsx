@@ -3,11 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import SingleCard from "./SingleCard";
-
-interface Topic {
-  id: number;
-  name: string;
-}
+import Topic from "../Data/Topic.model";
 
 interface TopicsListProps {
   onTopicAdded: (newTopic: Topic) => void;
@@ -33,15 +29,15 @@ const TopicsList: React.FC<TopicsListProps> = ({ onTopicAdded }) => {
     }
   };
 
-  const addTopicToList = (newTopic: Topic) => {
-    setTopics([...topics, newTopic]);
+  const handleDeleteTopic = (id: number) => {
+    setTopics(topics.filter((topic) => topic.id !== id));
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid sm:gap-6 grid-cols-1 md:gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
         {topics.map((topic) => (
-          <div key={topic.id} className="flex justify-center items-center m-4">
+          <div key={topic.id} className="relative">
             <SingleCard id={topic.id} name={topic.name} />
           </div>
         ))}
