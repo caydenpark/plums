@@ -30,7 +30,7 @@ export default function DeleteButton({
   return (
     <button
       onClick={handleDelete}
-      className="z-auto float-right rounded-xl bg-red-500 px-3 py-1 text-sm text-white transition-colors duration-200 ease-in-out hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+      className="absolute -top-4 -right-8 mt-2 mr-2 rounded-xl bg-red-500 px-3 py-1 text-sm text-white transition-colors duration-200 ease-in-out hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
     >
       X
     </button>
