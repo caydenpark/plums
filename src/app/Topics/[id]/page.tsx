@@ -68,7 +68,7 @@ export default function TopicPage() {
   return (
     <>
       <MainHeader />
-      <div className="mx-4 my-14 max-w-4xl p-6 sm:my-14 md:my-28 lg:my-40">
+      <div className="mx-1  lg:mx-20 xl:mx-20 my-14 max-w-4xl p-6 sm:my-14 md:my-28 lg:my-40">
         <div className="mb-6">
           <h1 className="text-2xl font-semibold text-gray-900 mb-7">
             {topic ? `Notes for Topic: ${topic.name}` : "Loading topic..."}{" "}
