@@ -41,7 +41,6 @@ const Topics: React.FC = () => {
   return (
     <>
       <div className="relative px-4 sm:px-6 lg:px-8">
-        <StaticBackground />
         <div className="relative px-4 sm:px-6 lg:px-8">
           <SecondHeader />
           <main className="flex flex-col items-center justify-center space-y-6 py-6 sm:py-40 lg:py-40">
