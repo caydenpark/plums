@@ -40,7 +40,7 @@ export default function ImagePage() {
   return (
     <>
       <MainHeader />
-      <div className="mx-4 md:p-4 lg:py-10">
+      <div className="container my-20 sm:my-12 md:my-0 lg:my-0 xl:my-0 mx-4 md:p-4 lg:py-10">
         <h1 className="mx-0 text-3xl sm:mt-24 sm:mb-8 md:text-4xl lg:text-4xl xl:text-4xl">
           Images
         </h1>

@@ -65,7 +65,7 @@ export default function FileUploadModal({
         <input type="file" onChange={handleFileChange} className="mb-4" />
 
         {file && (
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-md text-gray-500 mb-4">
             Selected file: {file.name}
           </p>
         )}

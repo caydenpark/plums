@@ -2,12 +2,12 @@
 
 "use client";
 
-import { useParams } from 'next/navigation';
-import React, { useState, useEffect, useCallback } from 'react';
-import MainHeader from '@/app/components/MainHeader';
-import MainFooter from '@/app/components/MainFooter';
-import FileUploadModal from '@/app/components/FileUploadModal';
-import { Attachment } from '@prisma/client';
+import { useParams } from "next/navigation";
+import React, { useState, useEffect, useCallback } from "react";
+import MainHeader from "@/app/components/MainHeader";
+import MainFooter from "@/app/components/MainFooter";
+import FileUploadModal from "@/app/components/FileUploadModal";
+import { Attachment } from "@prisma/client";
 
 export default function FilePage() {
   const params = useParams();
@@ -20,12 +20,12 @@ export default function FilePage() {
     try {
       const response = await fetch(`/api/topics/${topic_id}/files`);
       if (!response.ok) {
-        throw new Error('Failed to fetch files');
+        throw new Error("Failed to fetch files");
       }
       const loadedFiles = await response.json();
       setFiles(loadedFiles);
     } catch (error) {
-      console.error('Failed to fetch files', error);
+      console.error("Failed to fetch files", error);
     }
   }, [topic_id]);
 
@@ -54,9 +54,14 @@ export default function FilePage() {
   return (
     <>
       <MainHeader />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto my-12  sm:my-12 md:my- lg:my-12 xl:my-12 px-4 py-8">
         <h1 className="text-2xl font-bold mb-4">Files Page</h1>
-        <button onClick={openModal} className="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4">Upload File</button>
+        <button
+          onClick={openModal}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4"
+        >
+          Upload File
+        </button>
         {isModalOpen && (
           <FileUploadModal
             topic_id={parseInt(topic_id, 10)}
@@ -69,7 +74,11 @@ export default function FilePage() {
           <ul>
             {files.map((file) => (
               <li key={file.id} className="mb-2">
-                <a href={`/api/files/${file.id}`} download className="text-blue-500 underline">
+                <a
+                  href={`/api/files/${file.id}`}
+                  download
+                  className="text-blue-500 underline"
+                >
                   {file.name}
                 </a>
               </li>
