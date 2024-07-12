@@ -20,7 +20,7 @@ export default function Home() {
             <h1 className="mt-5 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               PLUMS
             </h1>
-            <p className="mt-9 text-2xl font-bold leading-8 text-gray-800">
+            <p className="mt-9 text-2xl font-bold leading-8 text-gray-700">
               Personal Learning Management System
             </p>
 
