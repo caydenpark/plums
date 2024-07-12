@@ -2,10 +2,10 @@
 
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import React from "react";
 import MainHeader from "@/app/components/MainHeader";
 import MainFooter from "@/app/components/MainFooter";
 import LinkAddModal from "@/app/components/LinkAddModal";
+import { LinkPreview } from "@/app/components/UI/LinkPreview";
 import Link from "@/app/Data/Link.model";
 
 export default function LinksPage() {
@@ -65,15 +65,13 @@ export default function LinksPage() {
                 className="mx-auto rounded-lg border-4 border-blue-300 bg-white p-4 shadow-sm transition duration-300 ease-in-out hover:-rotate-2 hover:border-blue-500 hover:shadow-lg"
               >
                 <h1 className="mt-2 text-gray-800 text-xl">{link.title}</h1>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <LinkPreview
+                  url={link.url}
                   className="text-blue-600 hover:text-blue-800"
                 >
                   {link.url}
-                </a>
-                <p className="mt-2 text-gray-800"> {link.description}</p>
+                </LinkPreview>
+                <p className="mt-2 text-gray-800">{link.description}</p>
                 <p className="mt-2 text-sm text-gray-500">
                   {new Date(link.date_added).toLocaleString()}
                 </p>

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { WavyBackground } from "./components/WavyBackground";
+import { WavyBackground } from "./components/UI/WavyBackground";
 
 export default function Home() {
   return (
@@ -12,15 +12,15 @@ export default function Home() {
             <Image
               src="/Logo.png"
               alt="PLUMS Logo"
-              width={150}
-              height={150}
+              width={210}
+              height={210}
               className="m-auto"
             />
 
             <h1 className="mt-5 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               PLUMS
             </h1>
-            <p className="mt-9 text-xl font-bold leading-8 text-gray-800">
+            <p className="mt-9 text-2xl font-bold leading-8 text-gray-800">
               Personal Learning Management System
             </p>
 
