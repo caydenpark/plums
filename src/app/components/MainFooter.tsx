@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MainFooter() {
   return (
-    <footer className="fixed bottom-0 w-full px-6 py-4 text-black">
+    <footer className="bottom-0 w-full px-6 py-4 text-black">
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg">PLUMS</h3>
