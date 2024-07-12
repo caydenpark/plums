@@ -67,7 +67,7 @@ export default function LinksPage() {
                 <h1 className="mt-2 text-gray-800 text-xl">{link.title}</h1>
                 <LinkPreview
                   url={link.url}
-                  className="text-blue-600 hover:text-blue-800"
+                  className="my-2 text-blue-600 hover:text-blue-800"
                 >
                   {link.url}
                 </LinkPreview>
