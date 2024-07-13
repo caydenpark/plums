@@ -27,14 +27,13 @@ export default function Content() {
           <tbody className="text-center">
             <tr>
               <td className="p-4 bg-violet-300 rounded-md rounded-tl-3xl">
-                <Link href="/new-image">
-                  <Image
-                    src={"/images/image_icon.png"}
-                    alt="image icon"
-                    width={100}
-                    height={100}
-                  />
-                </Link>
+                <Image
+                  src={"/images/image_icon.png"}
+                  alt="image icon"
+                  width={100}
+                  height={100}
+                  onClick={() => router.push(`/new-image?topicName=${encodeURIComponent(topicName)}&topic_id=${encodeURIComponent(topic_id)}`)}
+                />
               </td>
               <td className="p-4 bg-violet-300 rounded-md rounded-tr-3xl">
                   <Image
@@ -48,24 +47,22 @@ export default function Content() {
             </tr>
             <tr>
               <td className="p-4 bg-violet-300 rounded-md rounded-bl-3xl">
-                <Link href="/new-file">
-                  <Image
-                    src={"/images/files_icon.png"}
-                    alt="files icon"
-                    width={100}
-                    height={100}
-                  />
-                </Link>
+                <Image
+                  src={"/images/files_icon.png"}
+                  alt="files icon"
+                  width={100}
+                  height={100}
+                  onClick={() => router.push(`/new-file?topicName=${encodeURIComponent(topicName)}&topic_id=${encodeURIComponent(topic_id)}`)}
+                />
               </td>
               <td className="p-4 bg-violet-300 rounded-md rounded-br-3xl">
-                <Link href="new-link">
-                  <Image
-                    src={"/images/link_icon.png"}
-                    alt="link icon"
-                    width={100}
-                    height={100}
-                  />
-                </Link>
+                <Image
+                  src={"/images/link_icon.png"}
+                  alt="link icon"
+                  width={100}
+                  height={100}
+                  onClick={() => router.push(`/new-link?topicName=${encodeURIComponent(topicName)}&topic_id=${encodeURIComponent(topic_id)}`)}
+                />
               </td>
             </tr>
           </tbody>
