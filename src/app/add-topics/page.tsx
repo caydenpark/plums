@@ -33,10 +33,12 @@ export default function topics() {
       }
 
       const newTopic = await response.json();
+      const { id } = newTopic;
       console.log("New topic added:", newTopic);
+      console.log("New topic id:", id);
 
       // Redirect to the add-content page with topicName as query parameter
-      router.push(`/add-content?topicName=${encodeURIComponent(topicName)}`);
+      router.push(`/add-content?topicName=${encodeURIComponent(topicName)}&topic_id=${encodeURIComponent(id)}`);
     } catch (error) {
       console.error("Failed to add topic", error)
     }

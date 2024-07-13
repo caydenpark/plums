@@ -7,7 +7,10 @@ import Link from "next/link";
 
 export default function Content() {
   const searchParams = useSearchParams();
-  const topicName = searchParams.get("topicName");
+  const topicName = searchParams.get("topicName") || "Default Topic";
+  const topic_id = Number(searchParams.get("topic_id")) || 0;
+  console.log("topic_id:", topic_id);
+  const router = useRouter();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pb-10">
@@ -34,14 +37,13 @@ export default function Content() {
                 </Link>
               </td>
               <td className="p-4 bg-violet-300 rounded-md rounded-tr-3xl">
-                <Link href="/new-note">
                   <Image
                     src={"/images/notes_icon.png"}
                     alt="notes icon"
                     width={100}
                     height={100}
+                    onClick={() => router.push(`/new-note?topicName=${encodeURIComponent(topicName)}&topic_id=${encodeURIComponent(topic_id)}`)}
                   />
-                </Link>
               </td>
             </tr>
             <tr>
