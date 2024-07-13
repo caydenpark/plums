@@ -39,9 +39,9 @@ export default function Content() {
       }
 
       const newlink = await response.json();
-      
+
       // Redirect to the /Topics page
-      router.push(`/Topics`); // Example of redirection
+      router.push(`/Topics`);
 
     } catch (error) {
       setError(
