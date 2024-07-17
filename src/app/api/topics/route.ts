@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
     const topic = await prisma.topic.create({
       data: {
         name,
+        user: { connect: { id: 1 } }, // Replace '1' with the actual user ID
       },
     });
 
