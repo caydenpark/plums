@@ -1,5 +1,8 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const client = new PrismaClient();
 
-export default prisma
+const adapter = new PrismaAdapter(client.session, client.user);
+
+export default client;
