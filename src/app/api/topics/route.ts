@@ -1,7 +1,6 @@
 import prisma from "../../../../prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 
-
 //GET api/topics
 //function to fetch all topics from the database and return them
 export async function GET() {
@@ -17,22 +16,24 @@ export async function GET() {
   }
 }
 
-
 //POST /api/topics
 //function to create new topics in the database and return the created topic
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name } = body;
+  const { name, userId } = body;
 
-  if (!name) {
-    return NextResponse.json({ message: "Name is required" }, { status: 400 });
+  if (!name || !userId) {
+    return NextResponse.json(
+      { message: "Name and userId are required" },
+      { status: 400 }
+    );
   }
 
   try {
     const topic = await prisma.topic.create({
       data: {
         name,
-        user: { connect: { id: 1 } }, // Replace '1' with the actual user ID
+        user: { connect: { id: userId } },
       },
     });
 
