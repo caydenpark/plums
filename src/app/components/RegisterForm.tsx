@@ -1,8 +1,10 @@
+// src/app/components/RegisterForm.tsx
+
 "use client";
 
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 interface RegisterFormProps {
   closeModal: () => void;
@@ -10,13 +12,15 @@ interface RegisterFormProps {
 
 export default function RegisterForm({ closeModal }: RegisterFormProps) {
   const [formData, setFormData] = useState({
-    last_name: "",
     first_name: "",
+    last_name: "",
     email: "",
     password: "",
     username: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,6 +29,7 @@ export default function RegisterForm({ closeModal }: RegisterFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
 
     const response = await fetch("/api/auth/signup", {
       method: "POST",
@@ -35,7 +40,13 @@ export default function RegisterForm({ closeModal }: RegisterFormProps) {
     });
 
     if (response.ok) {
-      console.log("User registered successfully");
+      // Log in the user on the client side
+      await signIn("credentials", {
+        redirect: false,
+        email: formData.email,
+        password: formData.password,
+      });
+      router.push("/Topics");
     } else {
       const data = await response.json();
       setError(data.error || "Registration failed");
@@ -49,6 +60,7 @@ export default function RegisterForm({ closeModal }: RegisterFormProps) {
         className="space-y-4 max-w-md mx-auto p-4 sm:p-6 lg:p-8"
       >
         {error && <div className="text-red-500">{error}</div>}
+        {success && <div className="text-green-500">{success}</div>}
         <input
           type="text"
           name="first_name"

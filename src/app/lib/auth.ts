@@ -49,24 +49,28 @@ export const authConfig: NextAuthOptions = {
   ],
   callbacks: {
     async signIn(params) {
-      // Destructure needed properties from params
-      const { user, account, profile } = params;
-
-      // Ensure a user exists in the database for login
-      // If user email exists, allow sign in without directly comparing passwords here
+      const { user } = params;
       if (user.email) {
         const dbUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
-
         if (dbUser) {
-          return true; // Allow sign in
+          return true;
         }
       }
-      return false; // Block sign in
+      return false;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+    async session({ session, user }) {
+      const dbUser = await prisma.user.findUnique({
+        where: { email: session.user?.email || undefined },
+      });
+      if (dbUser) {
+        session.user.id = dbUser.id;
+      }
+      return session;
     },
   },
 };

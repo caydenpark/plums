@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id            Int       @id @default(autoincrement())
-  first_name    String    @unique
+  first_name    String    
   last_name     String
   username      String    @unique
   email         String    @unique
@@ -43,7 +43,7 @@ model Topic {
   TopicLabels  TopicLabels[]
   labels       Label[]       @relation("TopicLabels")
   user         User          @relation("UserTopics", fields: [user_id], references: [id])
-  user_id      Int           @unique
+  user_id      Int           
 }
 
 model Image {

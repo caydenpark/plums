@@ -8,6 +8,17 @@ import { signIn } from "next-auth/react"; // Adjusted import to use signIn corre
 export async function POST(req: NextRequest) {
   const { first_name, last_name, username, email, password } = await req.json();
 
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    return NextResponse.json(
+      { error: "User already exists with this email" },
+      { status: 400 }
+    );
+  }
+
   const password_hash = await bcrypt.hash(password, 10);
 
   try {
@@ -35,8 +46,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ user: newUser, session });
+    return NextResponse.json({ user: newUser, session }, { status: 201 });
   } catch (error) {
+    console.error("Error creating user", error);
     return NextResponse.json(
       { error: "User creation failed" },
       { status: 400 }
