@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-import AddImageModal from "@/app/components/AddImageModal"; // Import the AddImageModal component
+import AddImageModal from "@/app/components/AddImageModal";
 import { ImgType } from "@prisma/client";
 import ImageModel from "../Data/Image.model";
 
