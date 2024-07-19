@@ -1,8 +1,7 @@
-// src/app/components/AddTopicModal.tsx
-
 "use client";
 
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 
 interface AddTopicModalProps {
   onClose: () => void;
@@ -14,16 +13,23 @@ const AddTopicModal: React.FC<AddTopicModalProps> = ({
   onTopicAdded,
 }) => {
   const [name, setName] = useState("");
+  const { data: session } = useSession();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!session?.user?.id) {
+      console.error("User ID is not available");
+      return;
+    }
+
     try {
       const response = await fetch("/api/topics", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, userId: session.user.id }),
       });
       if (!response.ok) {
         throw new Error("Failed to add topic");

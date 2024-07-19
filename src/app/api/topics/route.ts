@@ -19,17 +19,25 @@ export async function GET() {
 //POST /api/topics
 //function to create new topics in the database and return the created topic
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const { name, userId } = body;
-
-  if (!name || !userId) {
-    return NextResponse.json(
-      { message: "Name and userId are required" },
-      { status: 400 }
-    );
-  }
-
   try {
+    const body = await req.json();
+    const { name, userId } = body;
+
+    if (!name || !userId) {
+      return NextResponse.json(
+        { message: "Name and userId are required" },
+        { status: 400 }
+      );
+    }
+
+    // Validate userId is a number if that's the expected type
+    if (typeof userId !== "number") {
+      return NextResponse.json(
+        { message: "Invalid userId format" },
+        { status: 400 }
+      );
+    }
+
     const topic = await prisma.topic.create({
       data: {
         name,
