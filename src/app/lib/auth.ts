@@ -69,8 +69,10 @@ export const authConfig: NextAuthOptions = {
       });
       if (dbUser) {
         session.user.id = dbUser.id;
+        session.user.name = dbUser.first_name; // Ensure this line is included in order to use it in the header
+        session.user.email = dbUser.email; // Ensure this line is included if email is needed
       }
       return session;
     },
-  },
-};
+  }
+}

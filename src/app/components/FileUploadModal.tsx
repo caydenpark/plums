@@ -5,7 +5,7 @@ import FileUpload from "./FileUpload";
 
 interface FileUploadModalProps {
   topic_id: number;
-  name: string;
+  name?: string;
   onUploadSuccess: (newFile: any) => void;
   onClose: () => void;
 }

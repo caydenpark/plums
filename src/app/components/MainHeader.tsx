@@ -1,12 +1,22 @@
 "use client";
+
 import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { useParams } from "next/navigation"; // Import useParams
+import Link from "next/link";
 import Image from "next/image";
 
 export default function MainHeader() {
+  const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { id } = useParams(); // Get the route params (e.g., topic id)
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -51,23 +61,52 @@ export default function MainHeader() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            href={`/Topics/${id}/files`}
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Files
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link
+            href={`/Topics/${id}/images`}
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Images
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link
+            href={`/Topics/${id}`}
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Notes
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link
+            href={`/Topics/${id}/links`}
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Links
-          </a>
+          </Link>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          {session ? (
+            <>
+              <span className="text-sm font-semibold leading-6 text-gray-900">
+                {session.user?.name || "Guest"}
+              </span>
+              <button
+                onClick={handleSignOut}
+                className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Log out <span aria-hidden="true">&rarr;</span>
+              </button>
+            </>
+          ) : (
+            <a
+              href="/login"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          )}
         </div>
       </nav>
 
@@ -92,7 +131,6 @@ export default function MainHeader() {
                 onClick={toggleMobileMenu}
               >
                 <span className="sr-only">Close menu</span>
-
                 <svg
                   className="h-6 w-6"
                   fill="none"
@@ -138,12 +176,26 @@ export default function MainHeader() {
                   </a>
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
+                  {session ? (
+                    <>
+                      <span className="text-sm font-semibold leading-6 text-gray-900">
+                        {session.user?.name || "Guest"}
+                      </span>
+                      <button
+                        onClick={handleSignOut}
+                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        Log out
+                      </button>
+                    </>
+                  ) : (
+                    <a
+                      href="/login"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Log in
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
