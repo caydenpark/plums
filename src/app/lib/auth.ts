@@ -47,6 +47,7 @@ export const authConfig: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn(params) {
       const { user } = params;
@@ -74,5 +75,5 @@ export const authConfig: NextAuthOptions = {
       }
       return session;
     },
-  }
-}
+  },
+};
