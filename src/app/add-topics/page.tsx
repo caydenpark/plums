@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function topics() {
+export default function Topics() {
   const [topicName, setTopicName] = useState("");
   const router = useRouter();
   const { data: session } = useSession();
