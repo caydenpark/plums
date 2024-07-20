@@ -1,16 +1,31 @@
 import prisma from "../../../../prisma/client";
 import { NextResponse, NextRequest } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authConfig } from "@/app/lib/auth";
 
 //GET api/topics
 //function to fetch all topics from the database and return them
-export async function GET() {
+export async function GET(req: NextRequest) {
+  // Get the user's session
+  const session = await getServerSession(authConfig);
+
+  if (!session || !session.user || !session.user.id) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
   try {
-    const topics = await prisma.topic.findMany();
-    return NextResponse.json(topics);
+    // Fetch topics created by the authenticated user
+    const topics = await prisma.topic.findMany({
+      where: {
+        user_id: session.user.id,
+      },
+    });
+
+    return NextResponse.json(topics, { status: 200 });
   } catch (error) {
-    console.error("Failed to fetch topics", error);
+    console.error("Error fetching topics", error);
     return NextResponse.json(
-      { message: "Failed to fetch topics" },
+      { error: "Failed to fetch topics" },
       { status: 500 }
     );
   }

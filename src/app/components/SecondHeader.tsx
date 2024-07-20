@@ -1,12 +1,22 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation"; // Import useParams
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 
-export default function MainHeader() {
+export default function SecondHeader() {
+  const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { id } = useParams(); // Get the route params (e.g., topic id)
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -56,9 +66,26 @@ export default function MainHeader() {
           </h1>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          {session ? (
+            <>
+              <span className="text-sm font-semibold leading-6 text-gray-900">
+                {session.user?.name || "Guest"}
+              </span>
+              <button
+                onClick={handleSignOut}
+                className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Log out <span aria-hidden="true">&rarr;</span>
+              </button>
+            </>
+          ) : (
+            <a
+              href="/login"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          )}
         </div>
       </nav>
 
@@ -83,7 +110,6 @@ export default function MainHeader() {
                 onClick={toggleMobileMenu}
               >
                 <span className="sr-only">Close menu</span>
-
                 <svg
                   className="h-6 w-6"
                   fill="none"
@@ -103,30 +129,30 @@ export default function MainHeader() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <a
-                    href="#"
+                  <Link
+                    href={`/Topics/${id}/files`}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Files
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href={`/Topics/${id}/images`}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Images
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href={`/Topics/${id}/notes`}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Notes
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href={`/Topics/${id}/links`}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Links
-                  </a>
+                  </Link>
                 </div>
                 <div className="py-6">
                   <a
