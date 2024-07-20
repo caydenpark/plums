@@ -1,13 +1,14 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import AddImageModal from "@/app/components/AddImageModal";
-import { ImgType } from "@prisma/client";
 import ImageModel from "../Data/Image.model";
 
-export default function Content() {
+// Main Content component
+function Content() {
   const searchParams = useSearchParams();
   const topicName = searchParams.get("topicName");
   const topic_id = parseInt(searchParams.get("topic_id") ?? "0");
@@ -20,7 +21,7 @@ export default function Content() {
   };
 
   const handleAddImage = (newImage: ImageModel) => {
-    setShowModal(false); // Close the modal after ad image
+    setShowModal(false); // Close the modal after adding the image
     router.push('/Topics');
   };
 
@@ -49,12 +50,25 @@ export default function Content() {
       </div>
 
       {showModal && (
-        <AddImageModal
-          topic_id={topic_id}
-          onClose={() => setShowModal(false)}
-          onAddImage={handleAddImage}
-        />
+        <Suspense fallback={<div>Loading Add Image Modal...</div>}>
+          <AddImageModal
+            topic_id={topic_id}
+            onClose={() => setShowModal(false)}
+            onAddImage={handleAddImage}
+          />
+        </Suspense>
       )}
     </main>
   );
 }
+
+// Suspense Boundary Component
+function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Content />
+    </Suspense>
+  );
+}
+
+export default SuspenseWrapper;

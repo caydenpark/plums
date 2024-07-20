@@ -1,10 +1,12 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 
-export default function Content() {
+// Main Content component
+function Content() {
   const searchParams = useSearchParams();
   const topicName = searchParams.get("topicName");
   const topic_id = parseInt(searchParams.get("topic_id") ?? "0");
@@ -38,7 +40,7 @@ export default function Content() {
         return;
       }
 
-      const newlink = await response.json();
+      const newLink = await response.json();
 
       // Redirect to the /Topics page
       router.push(`/Topics`);
@@ -111,3 +113,14 @@ export default function Content() {
     </main>
   );
 }
+
+// Suspense Boundary Component
+function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Content />
+    </Suspense>
+  );
+}
+
+export default SuspenseWrapper;

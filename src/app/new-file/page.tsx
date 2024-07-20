@@ -1,11 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import FileUploadModal from "../components/FileUploadModal";
 import Image from "next/image";
 
-export default function Content() {
+// Main Content component
+function Content() {
   const searchParams = useSearchParams();
   const topicName = searchParams.get("topicName");
   const topic_id = parseInt(searchParams.get("topic_id") ?? "0");
@@ -44,13 +46,26 @@ export default function Content() {
       </div>
 
       {isModalOpen && (
-        <FileUploadModal
-          topic_id={topic_id}
-          name={topicName ?? ""}
-          onUploadSuccess={handleUploadSuccess}
-          onClose={() => setIsModalOpen(false)} // Close modal
-        />
+        <Suspense fallback={<div>Loading File Upload Modal...</div>}>
+          <FileUploadModal
+            topic_id={topic_id}
+            name={topicName ?? ""}
+            onUploadSuccess={handleUploadSuccess}
+            onClose={() => setIsModalOpen(false)} // Close modal
+          />
+        </Suspense>
       )}
     </main>
   );
 }
+
+// Suspense Boundary Component
+function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Content />
+    </Suspense>
+  );
+}
+
+export default SuspenseWrapper;
