@@ -2,18 +2,25 @@
 
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function topics() {
+export default function Topics() {
   const [topicName, setTopicName] = useState("");
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTopicName(e.target.value);
   };
 
   const handleButtonClick = async () => {
+    if (!session?.user?.id) {
+      console.error("User ID is not available");
+      return;
+    }
+
     if (!topicName) {
       alert("Please enter a topic name");
       return;
@@ -25,7 +32,7 @@ export default function topics() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: topicName }),
+        body: JSON.stringify({ name: topicName, userId: session.user.id }),
       });
 
       if (!response.ok) {
