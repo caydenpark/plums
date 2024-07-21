@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 
 interface DeleteButtonProps {
   id: number;
@@ -11,6 +12,8 @@ export default function DeleteButton({
   entity,
   onDelete,
 }: DeleteButtonProps) {
+  const router = useRouter();
+  
   const handleDelete = async () => {
     try {
       const response = await fetch(`/api/${entity}/${id}`, {
@@ -22,6 +25,10 @@ export default function DeleteButton({
       }
 
       onDelete(id);
+
+      if (entity === "topic") {
+        router.push("/Topics");
+      }
     } catch (error) {
       console.error(`Error deleting ${entity}:`, error);
     }

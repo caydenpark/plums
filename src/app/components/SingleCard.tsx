@@ -3,13 +3,15 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import DeleteButton from "./DeleteButton";
 
 interface SingleCardProps {
   id: number;
   name: string;
+  onDelete: (id: number) => void;
 }
 
-const SingleCard: React.FC<SingleCardProps> = ({ id, name }) => {
+const SingleCard: React.FC<SingleCardProps> = ({ id, name, onDelete }) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -28,6 +30,9 @@ const SingleCard: React.FC<SingleCardProps> = ({ id, name }) => {
           <h2 className="text-center text-xl font-semibold text-black leading-tight">
             {name}
           </h2>
+          <div className="flex justify-center mt-4">
+            <DeleteButton id={id} entity="topic" onDelete={onDelete} />
+          </div>
         </div>
       </div>
     </div>

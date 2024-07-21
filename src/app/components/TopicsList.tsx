@@ -69,7 +69,12 @@ const TopicsList: React.FC<TopicsListProps> = ({
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {topics.map((topic) => (
           <div key={topic.id} className="relative">
-            <SingleCard id={topic.id} name={topic.name} />
+            <SingleCard
+              key={topic.id}
+              id={topic.id}
+              name={topic.name}
+              onDelete={handleDeleteTopic}
+            />
             <button
               onClick={() => openAddSubTopicModal(topic.id)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg px-4 py-2 transition duration-150 ease-in-out"
