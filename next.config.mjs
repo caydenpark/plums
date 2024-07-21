@@ -5,6 +5,7 @@ const nextConfig = {
 
         domains: [
             "api.microlink.io", // Microlink Image Preview
+            "https://plums-delta.vercel.app/"
         ],
     },
 };
