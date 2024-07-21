@@ -51,6 +51,7 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async signIn(params) {
       const { user } = params;
