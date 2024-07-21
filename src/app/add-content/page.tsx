@@ -1,11 +1,12 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Content() {
+// Your main Content component
+function Content() {
   const searchParams = useSearchParams();
   const topicName = searchParams.get("topicName") || "Default Topic";
   const topic_id = Number(searchParams.get("topic_id")) || 0;
@@ -82,3 +83,14 @@ export default function Content() {
     </main>
   );
 }
+
+// Suspense Boundary Component
+function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Content />
+    </Suspense>
+  );
+}
+
+export default SuspenseWrapper;
