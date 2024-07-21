@@ -7,7 +7,7 @@ import SecondHeader from "../components/SecondHeader";
 import TopicsList from "../components/TopicsList";
 import AddTopicModal from "../components/AddTopicModal";
 import MainFooter from "../components/MainFooter";
-import Topic from "@/app/Data/Topic.model";
+import { Topic } from "@/app/Data/Topic.model";
 import { WavyBackground } from "../components/UI/WavyBackground";
 import { Modal } from "../components/UI/Modal";
 import Authenticated from "../components/Authenticated";

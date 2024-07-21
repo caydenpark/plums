@@ -1,10 +1,15 @@
 import Note from "./Note.model";
 
-interface Topic {
+export interface Subtopic {
+  id: number;
+  name: string;
+}
+
+export interface Topic {
   id: number;
   name: string;
   notes: Note[];
-  subtopics: Topic[];
+  subtopics: Subtopic[];
 }
 
-export default Topic;
+

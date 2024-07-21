@@ -1,28 +1,30 @@
-import prisma from "../../../../../../prisma/client";
+import prisma from "../../../../../prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authConfig } from "../../../lib/auth";
 
-//POST
-// Function incharge of creating a new subtopic based on the id
-
+// POST endpoint to create a new subtopic
 export async function POST(request: NextRequest) {
   try {
-    // Extract topicId from URL parameters
-    const id = request.nextUrl.searchParams.get("id");
+    const session = await getServerSession(authConfig);
 
-    // Parse request body
-    const { name } = await request.json();
+    if (!session || !session.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { name, topicId } = await request.json();
 
     // Validate and sanitize inputs
-    if (!name || !id) {
+    if (!name || !topicId) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
 
-    // Create new subtopic
+    // Create a new subtopic
     const newSubtopic = await prisma.topic.create({
       data: {
         name,
-        parent_id: parseInt(id, 10),
-        user_id: 0, // Replace 0 with the actual user ID
+        parent_id: topicId, // Use topicId directly
+        user_id: session.user.id, // Use session.user.id directly
       },
     });
 

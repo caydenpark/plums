@@ -1,77 +1,86 @@
+"use client";
+
 import React, { useState } from "react";
-import { Modal } from "./UI/Modal";
+import { Modal } from "./UI/Modal"; // Adjust the import path as needed
 
 interface AddSubTopicModalProps {
   topicId: number;
   onClose: () => void;
-  onAddSubtopic: (newSubtopic: { name: string }) => void;
+  onAddSubtopic: (subtopic: { id: number; name: string }) => void;
 }
 
-export default function AddSubTopicModal({
+const AddSubTopicModal: React.FC<AddSubTopicModalProps> = ({
   topicId,
   onClose,
   onAddSubtopic,
-}: AddSubTopicModalProps) {
-  const [name, setName] = useState("");
+}) => {
+  const [subtopicName, setSubtopicName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e?.preventDefault();
-    try {
-      const response = await fetch(`/api/topics/${topicId}/subtopics`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      });
+    e.preventDefault();
+    if (subtopicName.trim()) {
+      setIsSubmitting(true);
+      setError(null);
+      try {
+        const response = await fetch(`/api/topics/subtopics`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: subtopicName, topicId }),
+        });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        if (!response.ok) {
+          throw new Error("Failed to create subtopic");
+        }
+
+        const newSubtopic = await response.json();
+        onAddSubtopic(newSubtopic);
+        setSubtopicName("");
+        onClose();
+      } catch (err) {
+        setError("An error occurred while adding the subtopic.");
+      } finally {
+        setIsSubmitting(false);
       }
-
-      const newSubtopic = await response.json();
-      onAddSubtopic(newSubtopic);
-      onClose();
-    } catch (error) {
-      console.error(
-        "There was an error creating the subtopic",
-        error instanceof Error ? error.message : error
-      );
     }
   };
 
   return (
-    <>
-      <Modal isOpen={true} closeModal={onClose}>
-        <h2 className="text-lg font-semibold">Add Subtopic</h2>
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-          <label className="block">
-            Subtopic Name:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md px-2 py-1"
-            />
+    <Modal isOpen={true} closeModal={onClose}>
+      <form onSubmit={handleSubmit} className="p-6">
+        <h2 className="text-xl font-semibold mb-4">Add Subtopic</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <div className="mb-4">
+          <label
+            htmlFor="subtopicName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Subtopic Name
           </label>
-          <div className="flex justify-end space-x-2">
-            <button
-              type="submit"
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow-sm hover:bg-blue-700"
-            >
-              Add Subtopic
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-md shadow-sm hover:bg-gray-300"
-            >
-              Close
-            </button>
-          </div>
-        </form>
-      </Modal>
-    </>
+          <input
+            id="subtopicName"
+            type="text"
+            value={subtopicName}
+            onChange={(e) => setSubtopicName(e.target.value)}
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            required
+          />
+        </div>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-4 py-2 transition duration-150 ease-in-out"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Adding..." : "Add"}
+          </button>
+        </div>
+      </form>
+    </Modal>
   );
-}
+};
+
+export default AddSubTopicModal;
