@@ -81,11 +81,6 @@ const TopicsList: React.FC<TopicsListProps> = ({
             >
               Add Subtopic
             </button>
-            <DeleteButton
-              id={topic.id}
-              entity="topic"
-              onDelete={handleDeleteTopic}
-            />
           </div>
         ))}
       </div>
