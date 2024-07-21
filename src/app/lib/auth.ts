@@ -1,11 +1,14 @@
-// src/app/lib/auth.ts
-
 import { NextAuthOptions, User } from "next-auth";
 import prisma from "../../../prisma/client";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+
+const NEXTAUTH_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://your-production-url.com"
+    : "http://localhost:3000";
 
 export const authConfig: NextAuthOptions = {
   providers: [
@@ -62,7 +65,7 @@ export const authConfig: NextAuthOptions = {
       return false;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      return url.startsWith(baseUrl) ? url : NEXTAUTH_URL;
     },
     async session({ session, user }) {
       const dbUser = await prisma.user.findUnique({
