@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SingleCard from "./SingleCard";
 import Topic from "../Data/Topic.model";
-import DeleteButton from "./DeleteButton";
+// import DeleteButton from "./DeleteButton";
 
 interface TopicsListProps {
   onTopicAdded: (newTopic: Topic) => void;
@@ -47,12 +47,18 @@ const TopicsList: React.FC<TopicsListProps> = ({
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
         {topics.map((topic) => (
           <div key={topic.id} className="relative">
-            <SingleCard id={topic.id} name={topic.name} />
-            <DeleteButton
+            {/* <SingleCard id={topic.id} name={topic.name} /> */}
+            <SingleCard
+              key={topic.id}
+              id={topic.id}
+              name={topic.name}
+              onDelete={handleDeleteTopic}
+            />
+            {/* <DeleteButton
               id={topic.id}
               entity="topic"
               onDelete={handleDeleteTopic}
-            />
+            /> */}
           </div>
         ))}
       </div>
