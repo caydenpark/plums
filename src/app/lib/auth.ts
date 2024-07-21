@@ -7,8 +7,8 @@ import GithubProvider from "next-auth/providers/github";
 
 const NEXTAUTH_URL =
   process.env.NODE_ENV === "production"
-    ? "https://your-production-url.com"
-    : "http://localhost:3000";
+    ? "https://plums-delta.vercel.app/"
+    : "http://localhost:3000/";
 
 export const authConfig: NextAuthOptions = {
   providers: [
