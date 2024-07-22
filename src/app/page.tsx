@@ -1,5 +1,5 @@
 // src/app/page.tsx
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -40,11 +40,13 @@ export default function Home() {
           <div className="mx-auto max-w-xl sm:max-w-2xl py-16 sm:py-32 lg:py-56">
             <div className="text-center">
               <Image
-                src="/Logo.png"
+                src="/logoS.webp"
                 alt="PLUMS Logo"
                 width={210}
                 height={210}
-                className="m-auto"
+                className="m-auto logo"
+                priority={true}
+                style={{ width: "350", height: "auto" }}
               />
 
               <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:mt-5 sm:text-4xl lg:text-6xl">
