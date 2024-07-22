@@ -40,13 +40,18 @@ export default function RegisterForm({ closeModal }: RegisterFormProps) {
     });
 
     if (response.ok) {
+      const data = await response.json();
       // Log in the user on the client side
-      await signIn("credentials", {
+      const signInResponse = await signIn("credentials", {
         redirect: false,
         email: formData.email,
         password: formData.password,
       });
-      router.push("/Topics");
+      if (signInResponse?.ok) {
+        router.push("/Topics");
+      } else {
+        setError("Login failed after registration");
+      }
     } else {
       const data = await response.json();
       setError(data.error || "Registration failed");
