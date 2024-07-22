@@ -60,7 +60,7 @@ export default function Home() {
                 <div className="mt-8 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-6">
                   <Link
                     href="/add-topics"
-                    className="rounded-md bg-indigo-500 px-3.5 py-3 text-sm font-semibold text-white shadow-xl hover:bg-indigo-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="rounded-md bg-indigo-500 px-3.5 py-3 text-sm font-semibold text-white shadow-xl hover:bg-indigo-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200"
                   >
                     Add Topic
                   </Link>
@@ -80,7 +80,7 @@ export default function Home() {
               ) : (
                 <button
                   onClick={openModal}
-                  className="mt-8 w-full sm:w-auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-lg font-semibold leading-6 text-white shadow-xl hover:bg-indigo-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800"
+                  className="mt-8 w-full sm:w-auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-lg font-semibold leading-6 text-white shadow-xl hover:bg-indigo-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 transition-colors duration-900"
                 >
                   Sign In
                 </button>
